@@ -1,3 +1,32 @@
+## Problem
+
+I spent years on live-chat support for Crocoblock plugins (JetEngine,
+JetFormBuilder, JetSmartFilters). This project automates the first line of that
+work, so a human agent only handles what actually needs a human.
+
+Based on that experience, client requests split into four groups:
+
+- **how_to** — needs a precise answer grounded in current documentation.
+  A plausible-but-wrong answer is worse than no answer at all: the client
+  follows it, breaks something, and comes back frustrated.
+- **bug** — a plugin doesn't work, or doesn't work as expected. Often it turns
+  out not to be a bug at all, but the process is identical either way: ask a
+  series of clarifying questions about the setup and, where possible, inspect
+  the live site. In practice this meant 3-4 message round-trips before any
+  diagnosis could even begin.
+- **code** — functionality that can be solved with a few lines of PHP or CSS,
+  extending what ships out of the box. The snippet must fit the client's actual
+  environment, so it cannot be written before that environment is known.
+- **rest** — anything outside the groups above: pre-sales questions, feature
+  requests, feedback. No answer is expected here; it needs to reach a human.
+
+A single prompt cannot serve all four. The agents need different tools
+(documentation retrieval vs. live site access), different permissions
+(read-only vs. writing code), and different success criteria (accuracy vs.
+correct diagnostic questioning vs. timely escalation). Splitting them into
+specialised agents keeps each prompt short and testable, and lets a small model
+handle classification while only the hard cases reach a large one.
+
 ## Agents
 
 | Agent | Responsibility | Tools | Model tier |
