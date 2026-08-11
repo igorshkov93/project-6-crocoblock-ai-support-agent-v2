@@ -1,1 +1,23 @@
+# Секреты — никогда не коммитим
+.env
+.env.local
 
+# Виртуальное окружение
+.venv/
+venv/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+
+# Логи и временное
+*.log
+*.tmp
+
+# IDE и ОС
+.vscode/
+.idea/
+Thumbs.db
+.DS_Store
