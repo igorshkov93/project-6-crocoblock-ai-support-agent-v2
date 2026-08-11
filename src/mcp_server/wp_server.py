@@ -1,4 +1,10 @@
 """MCP server exposing WordPress diagnostics to support agents."""
+import sys
+from pathlib import Path
+
+# Allow running this file directly as an MCP server subprocess.
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
+
 from fastmcp import FastMCP
 
 from src.mcp_server.wp_client import WPError, wp_get
