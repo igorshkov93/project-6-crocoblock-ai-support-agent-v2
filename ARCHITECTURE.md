@@ -1,53 +1,57 @@
-# Architecture
-
-## Problem
-
-<!-- 3-4 предложения от первого лица. Ориентиры:
-     - какие типы тикетов реально прилетали в чат Crocoblock (how-to / баг / "напишите мне код")
-     - почему у них разная механика обработки
-     - почему один универсальный промпт с этим не справляется -->
-
 ## Agents
 
-| Агент | Зона ответственности | Инструменты | Модель |
+| Agent | Responsibility | Tools | Model tier |
 |---|---|---|---|
-| #1 Router | Классифицирует запрос: how-to / bug / code / прочее. Отдаёт тип + confidence | — | Haiku (дёшево, быстро) |
-| #2 Docs Q&A | Отвечает на how-to по документации JetEngine | Pinecone retrieval + Cohere rerank | Sonnet |
-| #3 Bug Investigator | Задаёт уточняющие вопросы, собирает окружение с сайта | MCP: get_env_info, list_plugins, get_error_log | Sonnet |
-| #4 Code Generator | Пишет PHP/CSS-фиксы под собранный контекст | MCP: get_env_info + валидатор синтаксиса | Sonnet |
+| #1 Router | Classifies the request into `how_to` / `bug` / `code` / `rest`. Returns type + confidence | — | Haiku (cheap, fast) |
+| #2 Docs Q&A | Answers how-to questions from indexed plugin documentation | Pinecone retrieval + Cohere rerank | Sonnet |
+| #3 Bug Investigator | Asks clarifying questions, collects environment data from the live site | MCP: `get_env_info`, `list_plugins`, `get_error_log` | Sonnet |
+| #4 Code Generator | Writes PHP/CSS fixes against the collected context | MCP: `get_env_info` + syntax validator | Sonnet |
+
+Exact model IDs live in `src/config.py`. The provider is switchable via
+`LLM_PROVIDER`, so the same graph runs on Gemini during development.
+
+**Scope of v1:** the documentation index covers JetEngine only. JetFormBuilder
+and JetSmartFilters are additional namespaces in the same Pinecone index and
+require no code changes to add.
 
 ## Flow
 
 ```mermaid
 graph TD
-    A[User query] --> B[Agent #1: Router]
-    B -->|how-to| C[Agent #2: Docs Q&A]
-    B -->|bug| D[Agent #3: Bug Investigator]
-    B -->|code request| E[Agent #4: Code Generator]
-    D -->|need info| F[Clarifying questions]
+    A["User query"] --> B["Agent 1: Router"]
+    B -->|how_to| C["Agent 2: Docs Q&A"]
+    B -->|bug| D["Agent 3: Bug Investigator"]
+    B -->|code| E["Agent 4: Code Generator"]
+    B -->|rest| H["Escalate to human"]
+    B -->|confidence below threshold| H
+    D -->|needs more info| F["Clarifying questions"]
     F --> D
-    D -->|env collected| E
-    C --> G[Final answer]
+    D -->|max rounds reached| H
+    D -->|env collected, fix needs code| E
+    D -->|root cause explained| G["Final answer"]
+    C --> G
     E --> G
-    D --> G
+    H --> G
 ```
 
 ## State schema
 
-| Поле | Тип | Кто пишет | Назначение |
+| Field | Type | Written by | Purpose |
 |---|---|---|---|
-| `messages` | list | все | История диалога |
-| `query_type` | str | Router | how_to / bug / code / other |
-| `confidence` | float | Router | Уверенность классификации; ниже порога — эскалация |
-| `env_info` | dict | Bug Investigator | WP/PHP-версии, плагины, тема |
-| `retrieved_docs` | list | Docs Q&A | Найденные фрагменты документации |
-| `clarifying_rounds` | int | Bug Investigator | Счётчик вопросов, защита от бесконечного цикла |
-| `final_answer` | str | Docs Q&A / Code Gen | Ответ пользователю |
-| `needs_human` | bool | любой | Флаг эскалации на живого саппорта |
+| `messages` | list | all | Conversation history |
+| `query_type` | str | Router | `how_to` / `bug` / `code` / `rest` |
+| `confidence` | float | Router | Classification certainty; below threshold → escalate |
+| `env_info` | dict | Bug Investigator | WP/PHP versions, active plugins, theme |
+| `retrieved_docs` | list | Docs Q&A | Retrieved documentation chunks |
+| `clarifying_rounds` | int | Bug Investigator | Question counter; caps the loop at 3 rounds |
+| `final_answer` | str | Docs Q&A / Code Generator | Response to the user |
+| `needs_human` | bool | any | Escalation flag for a live support agent |
 
 ## Tech stack
 
-- **Оркестрация:** LangGraph (conditional edges, `interrupt`, checkpointer)
-- **LLM:** Anthropic Claude (основной), Google Gemini (dev-режим) — переключение через `LLM_PROVIDER`
-- **Retrieval:** Pinecone + contextual retrieval + Cohere rerank
-- **Интеграция с WordPress:** собственный MCP-сервер поверх WP REST API
+- **Orchestration:** LangGraph — conditional edges, `interrupt` for
+  human-in-the-loop questioning, checkpointer for conversation memory
+- **LLM:** Anthropic Claude (primary), Google Gemini (development) — switched
+  via a single `LLM_PROVIDER` variable
+- **Retrieval:** Pinecone with contextual retrieval + Cohere reranking
+- **WordPress integration:** custom MCP server over the WP REST API
