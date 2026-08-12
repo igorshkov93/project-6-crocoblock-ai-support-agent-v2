@@ -1,0 +1,161 @@
+{
+  "generated_at": "2026-08-12T16:36:21",
+  "provider": "anthropic",
+  "models": {
+    "fast": "claude-haiku-4-5-20251001",
+    "smart": "claude-sonnet-5"
+  },
+  "router": {
+    "total": 25,
+    "correct": 24,
+    "accuracy": 0.96,
+    "avg_confidence": 0.93,
+    "per_class": {
+      "bug": {
+        "total": 7,
+        "correct": 7,
+        "rate": 1.0
+      },
+      "code": {
+        "total": 6,
+        "correct": 5,
+        "rate": 0.833
+      },
+      "how_to": {
+        "total": 6,
+        "correct": 6,
+        "rate": 1.0
+      },
+      "rest": {
+        "total": 6,
+        "correct": 6,
+        "rate": 1.0
+      }
+    },
+    "confusion": {
+      "code -> how_to": 1
+    },
+    "failures": [
+      {
+        "query": "how to hide a field with css for mobile only",
+        "expected": "code",
+        "actual": "how_to",
+        "confidence": 0.95,
+        "reason": "Customer is asking how to use CSS to hide a field on mobile, which is a standard feature configuration question covered in documentation."
+      }
+    ]
+  },
+  "escalation": {
+    "total": 8,
+    "escalated": 7,
+    "rate": 0.875,
+    "threshold": 0.6,
+    "details": [
+      {
+        "query": "it doesnt work",
+        "note": "no subject at all",
+        "query_type": "bug",
+        "confidence": 0.45,
+        "escalated": true
+      },
+      {
+        "query": "help",
+        "note": "no content",
+        "query_type": "rest",
+        "confidence": 0.5,
+        "escalated": true
+      },
+      {
+        "query": "how do I do the thing we discussed yesterday?",
+        "note": "missing context",
+        "query_type": "how_to",
+        "confidence": 0.35,
+        "escalated": true
+      },
+      {
+        "query": "same problem as before",
+        "note": "references unknown history",
+        "query_type": "rest",
+        "confidence": 0.4,
+        "escalated": true
+      },
+      {
+        "query": "форма не работает",
+        "note": "non-English, minimal detail",
+        "query_type": "bug",
+        "confidence": 0.75,
+        "escalated": false
+      },
+      {
+        "query": "asdfgh",
+        "note": "gibberish",
+        "query_type": "rest",
+        "confidence": 0.3,
+        "escalated": true
+      },
+      {
+        "query": "can you check my site?",
+        "note": "no site, no problem stated",
+        "query_type": "rest",
+        "confidence": 0.55,
+        "escalated": true
+      },
+      {
+        "query": "is it possible?",
+        "note": "no antecedent",
+        "query_type": "rest",
+        "confidence": 0.35,
+        "escalated": true
+      }
+    ]
+  },
+  "rag": {
+    "total": 10,
+    "hit_at_3": 0.8,
+    "hit_at_5": 0.9,
+    "avg_rank_when_found": 2.22,
+    "misses": [
+      {
+        "question": "How to add a file upload field to my form?",
+        "expected_source": "media-field",
+        "got": [
+          "https://jetformbuilder.com/addons/drag-and-drop-file-upload/",
+          "https://jetformbuilder.com/features/how-to-create-file-upload-form/",
+          "https://jetformbuilder.com/features/how-to-create-file-upload-form/",
+          "https://jetformbuilder.com/features/jetformbuilder-drag-and-drop-file-upload/",
+          "https://jetformbuilder.com/features/how-to-upload-media-files-to-options-pages-via-front-end-form/"
+        ]
+      }
+    ]
+  },
+  "latency": {
+    "bug_investigator (to first question)": {
+      "runs": 1,
+      "mean_sec": 29.62,
+      "median_sec": 29.62,
+      "min_sec": 29.62,
+      "max_sec": 29.62
+    },
+    "code_generator": {
+      "runs": 2,
+      "mean_sec": 22.86,
+      "median_sec": 22.86,
+      "min_sec": 16.36,
+      "max_sec": 29.35
+    },
+    "docs_qa": {
+      "runs": 2,
+      "mean_sec": 11.79,
+      "median_sec": 11.79,
+      "min_sec": 11.01,
+      "max_sec": 12.57
+    },
+    "escalation": {
+      "runs": 1,
+      "mean_sec": 1.16,
+      "median_sec": 1.16,
+      "min_sec": 1.16,
+      "max_sec": 1.16
+    }
+  }
+}

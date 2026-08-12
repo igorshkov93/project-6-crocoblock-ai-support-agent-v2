@@ -1,0 +1,8 @@
+[
+  {"query": "How do I add a repeater field to my form?"},
+  {"query": "Please explain how conditional blocks work"},
+  {"query": "I need a PHP hook to change the redirect URL after submit"},
+  {"query": "How can I validate an email field against a custom rule in PHP?"},
+  {"query": "My form stopped sending emails after the last update"},
+  {"query": "What is the price of the pro version?"}
+]
