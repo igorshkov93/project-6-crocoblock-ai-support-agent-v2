@@ -6,14 +6,7 @@ from src.state import SupportState
 
 from src.agents.router import router_node
 from src.agents.docs_qa import docs_qa_node
-
-def bug_investigator_node(state: SupportState) -> dict:
-    """Stub: collect environment info and diagnose."""
-    return {
-        "final_answer": "[Bug Investigator stub] diagnosis will go here",
-        "handled_by": "bug_investigator",
-    }
-
+from src.agents.bug_investigator import bug_investigator_node
 
 def code_generator_node(state: SupportState) -> dict:
     """Stub: write a PHP/CSS snippet."""
