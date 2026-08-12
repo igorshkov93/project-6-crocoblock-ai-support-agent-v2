@@ -8,13 +8,9 @@ from src.state import SupportState
 from src.agents.router import router_node
 from src.agents.docs_qa import docs_qa_node
 from src.agents.bug_investigator import bug_investigator_node
+from src.agents.code_generator import code_generator_node
 
-def code_generator_node(state: SupportState) -> dict:
-    """Stub: write a PHP/CSS snippet."""
-    return {
-        "final_answer": "[Code Generator stub] snippet will go here",
-        "handled_by": "code_generator",
-    }
+
 
 
 def escalate_node(state: SupportState) -> dict:
