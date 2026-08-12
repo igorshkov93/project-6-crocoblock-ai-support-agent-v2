@@ -1,6 +1,7 @@
 
 """LangGraph assembly of the multi-agent support system."""
 from langgraph.graph import END, START, StateGraph
+from langgraph.checkpoint.memory import InMemorySaver
 
 from src.state import SupportState
 
@@ -61,12 +62,21 @@ def build_graph():
         route_after_router,
         ["docs_qa", "bug_investigator", "code_generator", "escalate"],
     )
+    def route_after_investigation(state: SupportState) -> str:
+        """Loop back for another round if the investigation is unfinished."""
+        if state.get("final_answer"):
+            return END
+        return "bug_investigator"
+
+    builder.add_conditional_edges(
+        "bug_investigator", route_after_investigation, ["bug_investigator", END]
+    )
     builder.add_edge("docs_qa", END)
-    builder.add_edge("bug_investigator", END)
     builder.add_edge("code_generator", END)
     builder.add_edge("escalate", END)
 
-    return builder.compile()
+    
+    return builder.compile(checkpointer=InMemorySaver())
 
 
 graph = build_graph()

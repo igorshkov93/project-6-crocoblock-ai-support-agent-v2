@@ -23,6 +23,7 @@ class SupportState(TypedDict, total=False):
     # Bug Investigator
     env_info: dict
     clarifying_rounds: int
+    investigation_log: list
 
     # Docs Q&A
     retrieved_docs: list
