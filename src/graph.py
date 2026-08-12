@@ -5,14 +5,7 @@ from langgraph.graph import END, START, StateGraph
 from src.state import SupportState
 
 from src.agents.router import router_node
-
-def docs_qa_node(state: SupportState) -> dict:
-    """Stub: answer a how-to question from documentation."""
-    return {
-        "final_answer": "[Docs Q&A stub] answer will go here",
-        "handled_by": "docs_qa",
-    }
-
+from src.agents.docs_qa import docs_qa_node
 
 def bug_investigator_node(state: SupportState) -> dict:
     """Stub: collect environment info and diagnose."""
