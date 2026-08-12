@@ -4,15 +4,7 @@ from langgraph.graph import END, START, StateGraph
 
 from src.state import SupportState
 
-
-def router_node(state: SupportState) -> dict:
-    """Stub: classify the incoming query."""
-    return {
-        "query_type": "how_to",
-        "confidence": 0.9,
-        "routing_reason": "stub router always returns how_to",
-    }
-
+from src.agents.router import router_node
 
 def docs_qa_node(state: SupportState) -> dict:
     """Stub: answer a how-to question from documentation."""

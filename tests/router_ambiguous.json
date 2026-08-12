@@ -1,0 +1,10 @@
+[
+  {"query": "it doesnt work", "note": "no subject at all"},
+  {"query": "help", "note": "no content"},
+  {"query": "how do I do the thing we discussed yesterday?", "note": "missing context"},
+  {"query": "same problem as before", "note": "references unknown history"},
+  {"query": "форма не работает", "note": "non-English, minimal detail"},
+  {"query": "asdfgh", "note": "gibberish"},
+  {"query": "can you check my site?", "note": "no site, no problem stated"},
+  {"query": "is it possible?", "note": "no antecedent"}
+]

@@ -1,1 +1,32 @@
 
+[
+  {"query": "How do I add a repeater field to my form?", "expected": "how_to"},
+  {"query": "where i can find form records in admin", "expected": "how_to"},
+  {"query": "How to send form data to a webhook?", "expected": "how_to"},
+  {"query": "what is the difference between save form record and insert post action", "expected": "how_to"},
+  {"query": "How can I make a field required only if another field is filled?", "expected": "how_to"},
+  {"query": "Please explain how conditional blocks work", "expected": "how_to"},
+
+  {"query": "my form doesnt send emails anymore after update", "expected": "bug"},
+  {"query": "Form submits but nothing appears in Form Records", "expected": "bug"},
+  {"query": "I get a white screen when I open the form editor", "expected": "bug"},
+  {"query": "the select field is empty, options are not loading", "expected": "bug"},
+  {"query": "Getting 500 error on submit, log says nothing", "expected": "bug"},
+  {"query": "captcha not working, users cant submit", "expected": "bug"},
+
+  {"query": "Can you write me a snippet to change the submit button text?", "expected": "code"},
+  {"query": "need php code to validate email domain before submit", "expected": "code"},
+  {"query": "how to hide a field with css for mobile only", "expected": "code"},
+  {"query": "Give me a hook that fires after the form is submitted", "expected": "code"},
+  {"query": "I want custom php to send data to my CRM after submit", "expected": "code"},
+  {"query": "snippet to prefill field with current user email", "expected": "code"},
+
+  {"query": "Does the free version support multi-step forms?", "expected": "rest"},
+  {"query": "how much is the lifetime license", "expected": "rest"},
+  {"query": "I want to suggest a feature: dark mode for the editor", "expected": "rest"},
+  {"query": "can i get a refund", "expected": "rest"},
+  {"query": "hi", "expected": "rest"},
+  {"query": "your plugin is great, thanks!", "expected": "rest"},
+
+  {"query": "form not working, can you send me the code to fix it?", "expected": "bug"}
+]

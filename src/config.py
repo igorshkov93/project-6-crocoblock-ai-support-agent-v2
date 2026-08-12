@@ -34,9 +34,9 @@ def get_llm(tier: str = "smart", temperature: float = 0.0):
 
     if LLM_PROVIDER == "anthropic":
         from langchain_anthropic import ChatAnthropic
-        return ChatAnthropic(
-            model=model_name, temperature=temperature, max_tokens=2000
-        )
 
-    from langchain_google_genai import ChatGoogleGenerativeAI
-    return ChatGoogleGenerativeAI(model=model_name, temperature=temperature)
+        kwargs = {"model": model_name, "max_tokens": 2000}
+        # Sonnet 5 and newer models reject the temperature parameter.
+        if "sonnet-5" not in model_name:
+            kwargs["temperature"] = temperature
+        return ChatAnthropic(**kwargs)
