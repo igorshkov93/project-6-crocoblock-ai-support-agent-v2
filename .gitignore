@@ -21,3 +21,6 @@ __pycache__/
 .idea/
 Thumbs.db
 .DS_Store
+
+# Scraped documentation (rebuilt by scripts)
+data/

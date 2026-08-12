@@ -6,3 +6,12 @@ python-dotenv
 pydantic
 fastmcp
 langchain-mcp-adapters
+requests
+beautifulsoup4
+lxml
+pinecone
+cohere
+langchain-pinecone
+langchain-text-splitters
+langchain-google-genai
+langchain-cohere
