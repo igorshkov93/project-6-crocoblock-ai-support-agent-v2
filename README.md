@@ -9,7 +9,7 @@ confident enough.
 Built with LangGraph. Runs on Anthropic Claude or Google Gemini, switched by a
 single environment variable.
 
-**Languages:** English · [Русский](README.ru.md) · [Українська](README.uk.md)
+**Languages:** English · [Русский](README.ru.md) · [Українська](README.ua.md)
 
 ## Demo
 
