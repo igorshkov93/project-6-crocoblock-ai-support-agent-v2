@@ -11,6 +11,12 @@ single environment variable.
 
 **Languages:** English · [Русский](README.ru.md) · [Українська](README.uk.md)
 
+## Demo
+
+**[▶ Watch the walkthrough (Loom)](https://www.loom.com/share/12bc143caf2d446288fef600a9506836)** — the four agents on a live
+WordPress site, including the one scene that matters most: the code agent
+declining to write a snippet for a hook that does not exist.
+
 ---
 
 ## Why this exists
