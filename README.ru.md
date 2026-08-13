@@ -8,7 +8,7 @@ JetFormBuilder: классифицирует обращение, отвечае�
 Построено на LangGraph. Работает на Anthropic Claude или Google Gemini —
 переключение одной переменной окружения.
 
-**Языки:** [English](README.md) · Русский · [Українська](README.uk.md)
+**Языки:** [English](README.md) · Русский · [Українська](README.ua.md)
 
 ## Демо
 
